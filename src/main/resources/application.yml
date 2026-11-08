@@ -1,0 +1,27 @@
+server:
+  port: ${PORT:9000}
+spring:
+  application:
+    name: faro-identity
+  datasource:
+    url: ${JDBC_URL:jdbc:postgresql://localhost:5432/faro_identity}
+    username: ${DB_USER:faro_identity}
+    password: ${DB_PASSWORD:identity}
+  flyway:
+    enabled: true
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: ${FARO_ISSUER:http://localhost:9000}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+faro:
+  dev:
+    bootstrap-enabled: ${FARO_DEV_BOOTSTRAP:false}
+
+  brand:
+    logo-url: ${FARO_BRAND_LOGO_URL:}
+    android-download-url: ${FARO_ANDROID_DOWNLOAD_URL:}

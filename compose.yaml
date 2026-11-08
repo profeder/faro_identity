@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:17
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_DB: faro_identity
+      POSTGRES_USER: faro_identity
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Imposta DB_PASSWORD nel file .env}
+    volumes:
+      - identity_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U faro_identity -d faro_identity"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+volumes:
+  identity_pg_data:

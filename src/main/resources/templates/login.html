@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Accedi | Portale FARO</title>
+  <link rel="stylesheet" th:href="@{/css/login.css}" href="/css/login.css">
+</head>
+<body>
+<main class="login-layout">
+  <section class="brand-panel" aria-label="Portale Faro">
+    <div class="brand-top">
+      <img class="brand-logo" th:if="${logoUrl != null and !#strings.isEmpty(logoUrl)}"
+           th:src="${logoUrl}" alt="Faro Ops Platform">
+      <div class="brand-logo-fallback" th:unless="${logoUrl != null and !#strings.isEmpty(logoUrl)}">FARO<span>OPS</span></div>
+    </div>
+    <div class="grid-decoration" aria-hidden="true"></div>
+    <div class="brand-bottom">
+      <p class="brand-eyebrow">AREA RISERVATA</p>
+      <h1>Portale FARO</h1>
+      <p class="brand-subtitle">Field Operations Management Platform</p>
+    </div>
+  </section>
+  <section class="form-panel" aria-label="Accesso account">
+    <div class="mobile-brand">
+      <img th:if="${logoUrl != null and !#strings.isEmpty(logoUrl)}"
+           th:src="${logoUrl}" alt="Faro Ops Platform">
+      <strong th:unless="${logoUrl != null and !#strings.isEmpty(logoUrl)}">FARO OPS</strong>
+    </div>
+    <div class="form-content">
+      <p class="welcome">BENVENUTO IN FARO</p>
+      <h2>Accedi al tuo account</h2>
+      <p class="instructions">Inserisci le tue credenziali per continuare.</p>
+      <div class="alert" role="alert" th:if="${param.error}">Email o password non validi.</div>
+      <div class="notice" role="status" th:if="${param.logout}">Hai effettuato la disconnessione.</div>
+      <form th:action="@{/login}" method="post">
+        <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <label for="username">Indirizzo email</label>
+        <input id="username" name="username" type="email" autocomplete="username"
+               placeholder="nome@azienda.it" required autofocus>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password"
+               placeholder="La tua password" required>
+        <button type="submit">Accedi <span aria-hidden="true">↗</span></button>
+      </form>
+      <p class="secure"><span class="green-dot" aria-hidden="true">•</span> Connessione protetta</p>
+      <a class="android-link" th:if="${androidDownloadUrl != null and !#strings.isEmpty(androidDownloadUrl)}"
+         th:href="${androidDownloadUrl}" rel="noopener noreferrer">♟&nbsp; Scarica l'app Android (test)</a>
+    </div>
+    <footer>Faro&nbsp; · &nbsp;Area riservata</footer>
+  </section>
+</main>
+</body>
+</html>
